@@ -1,16 +1,18 @@
 package org.brohede.marcus.listviewapp;
 
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private String[] mountainNames = {"Matterhorn","Mont Blanc","Denali"};
@@ -27,8 +29,17 @@ public class MainActivity extends AppCompatActivity {
         ArrayAdapter adapter = new ArrayAdapter(getApplicationContext(),R.layout.view_items,R.id.my_text,listdata);
 
         ListView listView = (ListView) findViewById(R.id.my_list);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String toast = "Name: " + mountainNames[position] + '\n' + "Location: " + mountainLocations[position] + '\n' + "Height: " + mountainHeights[position];
+                Toast.makeText(MainActivity.this,toast, Toast.LENGTH_SHORT).show();
+            }
+        });
+
         listView.setAdapter(adapter);
-        adapter.add("Matterhorn");
+
         // The onCreate method is run when the app is created
         // Before you can implement this you need to create the layout xml files that
         // will hold/show your data created here. You need three create things:
